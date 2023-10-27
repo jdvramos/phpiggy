@@ -39,7 +39,13 @@ class Router
 				continue;
 			}
 
-			echo 'route found';
+			[$class, $function] = $route['controller'];
+
+			// It is completely acceptable to provide a string after the 'new' keyword as long as the string points to a specific class with the namespace
+			$controllerInstance = new $class;
+			
+			// It's also acceptable to put a string after the arrow operator. PHP tries to resolve the value in the string to a method in the class. If it finds the method, it would allow us to invoke the method like any other method
+			$controllerInstance->$function();
 		}
 	}
 }
