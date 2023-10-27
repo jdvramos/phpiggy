@@ -1,2 +1,1 @@
-<?php echo $secret; ?>
-<h1>Home page</h1>
+<h1><?php echo $title; ?></h1>
