@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Framework;
 
-class App 
+class App
 {
 	private Router $router;
 
@@ -13,7 +13,7 @@ class App
 		$this->router = new Router();
 	}
 
-	public function run() 
+	public function run()
 	{
 		$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		$method = $_SERVER['REQUEST_METHOD'];

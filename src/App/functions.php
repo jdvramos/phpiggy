@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 // It's named dd as short for dump and die
-function dd(mixed $value) 
+function dd(mixed $value)
 {
 	echo "<pre>";
 	var_dump($value);
