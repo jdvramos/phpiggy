@@ -19,7 +19,7 @@ class TemplateEngine
 		// until every line is finished running or the buffer is closed 
 		ob_start();
 
-		include "{$this->basePath}/{$template}";
+		include $this->resolve($template);
 
 		// Before closing the buffer, we must retrieve the content otherwise, PHP may 
 		// output the content early. To do this, call the ob_get_contents(), 
@@ -36,5 +36,10 @@ class TemplateEngine
 		ob_end_clean();
 
 		return $output;
+	}
+
+	public function resolve(string $path)
+	{
+		return "{$this->basePath}/{$path}";
 	}
 }
