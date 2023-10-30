@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Framework;
 
+use ReflectionClass;
+
 class Container
 {
 	private array $definitions = [];
@@ -12,6 +14,11 @@ class Container
 	{
 		// The spread operator is slightly faster than the array_merge() function
 		$this->definitions = [...$this->definitions, ...$newDefinitions];
-		dd($this->definitions);
+	}
+
+	public function resolve(string $className)
+	{
+		$reflectionClass = new ReflectionClass($className);
+		dd($reflectionClass);
 	}
 }
