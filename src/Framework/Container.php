@@ -34,6 +34,13 @@ class Container
 			return new $className;
 		}
 
-		dd($constructor);
+		$params = $constructor->getParameters();
+
+		// Since not all class' constructor function accepts a parameter, add a check
+		if (count($params) === 0) {
+			return new $className;
+		}
+
+		dd($params);
 	}
 }
