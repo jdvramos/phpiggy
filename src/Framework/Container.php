@@ -65,8 +65,27 @@ class Container
 			if (!$type instanceof ReflectionNamedType || $type->isBuiltin()) {
 				throw new ContainerException("Failed to resolve class {$className} because invalid param name.");
 			}
+
+			// At this point, the parameter is already validated. We are going to invoke the
+			// get() method and push its return value into the $dependencies array
+			$dependencies[] = $this->get($type->getName());
 		}
 
-		dd($params);
+		dd($dependencies);
+	}
+
+	// The $id parameter should point to a specific item in our array 
+	// from container-definitions.php by its key.
+	public function get(string $id)
+	{
+		// Validate the $id, it's possible that there isn't a dependency with given $id
+		if (!array_key_exists($id, $this->definitions)) {
+			throw new ContainerException("Class {$id} does not exist in container.");
+		}
+		// As a reminder, the items in the $definitions array are factory functions
+		$factory = $this->definitions[$id];
+		// If we want the dependency we must invoke the function
+		$dependency = $factory();
+		return $dependency;
 	}
 }
