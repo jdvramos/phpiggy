@@ -26,6 +26,14 @@ class Container
 			throw new ContainerException("Class {$className} is not instantiable");
 		}
 
-		dd($reflectionClass);
+		// This retrieves the class' constructor function
+		$constructor = $reflectionClass->getConstructor();
+
+		// Since not all class have constructor function, add a check
+		if (!$constructor) {
+			return new $className;
+		}
+
+		dd($constructor);
 	}
 }
