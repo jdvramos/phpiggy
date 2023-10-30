@@ -71,7 +71,12 @@ class Container
 			$dependencies[] = $this->get($type->getName());
 		}
 
-		dd($dependencies);
+		// The Reflection API is not limited to inspecting the structure of a class. We can
+		// also use it to create new instances. The newInstanceArgs() method is available
+		// for instantiating the class being reflected. It accepts an array of arguments
+		// that can be passed to the __construct() method of the class. The return value
+		// is a new instance
+		return $reflectionClass->newInstanceArgs($dependencies);
 	}
 
 	// The $id parameter should point to a specific item in our array 
