@@ -15,6 +15,7 @@ class TemplateDataMiddleware implements MiddlewareInterface
 
 	public function process(callable $next)
 	{
-		echo "Template data middleware";
+		$this->view->addGlobal('title', 'Expense Tracking App');
+		$next();
 	}
 }
