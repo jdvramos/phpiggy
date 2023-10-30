@@ -48,7 +48,16 @@ class Router
 			// It's also acceptable to put a string after the arrow operator. 
 			// PHP tries to resolve the value in the string to a method in the class. 
 			// If it finds the method, it would allow us to invoke the method like any other method
-			$controllerInstance->$function();
+			$action = fn () => $controllerInstance->$function();
+
+			foreach ($this->middlewares as $middleware) {
+				$middlewareInstance = new $middleware;
+				$action = fn () => $middlewareInstance->process($action);
+			}
+
+			$action();
+
+			return;
 		}
 	}
 

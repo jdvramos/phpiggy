@@ -10,5 +10,6 @@ class TemplateDataMiddleware implements MiddlewareInterface
 {
 	public function process(callable $next)
 	{
+		echo "Template data middleware";
 	}
 }
