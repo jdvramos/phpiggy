@@ -10,6 +10,8 @@ class Container
 
 	public function addDefinitions(array $newDefinitions)
 	{
-		dd($newDefinitions);
+		// The spread operator is slightly faster than the array_merge() function
+		$this->definitions = [...$this->definitions, ...$newDefinitions];
+		dd($this->definitions);
 	}
 }
