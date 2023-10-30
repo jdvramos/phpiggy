@@ -14,10 +14,11 @@ class HomeController
 	{
 	}
 
+	// The controllers no longer are required to provide a title. It's completely optional
+	// Check the AboutController where it passes an array with title as an element. If you
+	// ever removed it our app will use the global title variable 
 	public function home()
 	{
-		echo $this->view->render("index.php", [
-			'title' => 'Home page'
-		]);
+		echo $this->view->render("index.php");
 	}
 }

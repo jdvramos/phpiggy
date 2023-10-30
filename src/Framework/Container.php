@@ -10,6 +10,7 @@ use Framework\Exceptions\ContainerException;
 class Container
 {
 	private array $definitions = [];
+	private array $resolved = [];
 
 	public function addDefinitions(array $newDefinitions)
 	{
@@ -87,10 +88,21 @@ class Container
 		if (!array_key_exists($id, $this->definitions)) {
 			throw new ContainerException("Class {$id} does not exist in container.");
 		}
+
+		// To prevent a dependency from being instantiated more than once (Singleton Pattern)
+		if (array_key_exists($id, $this->resolved)) {
+			return $this->resolved[$id];
+		}
+
 		// As a reminder, the items in the $definitions array are factory functions
 		$factory = $this->definitions[$id];
 		// If we want the dependency we must invoke the function
 		$dependency = $factory();
+
+		// To prevent a dependency from being instantiated more than once (Singleton Pattern)
+		// Adding it to the resolved array so that the $dependency can be checked later
+		$this->resolved[$id] = $dependency;
+
 		return $dependency;
 	}
 }
