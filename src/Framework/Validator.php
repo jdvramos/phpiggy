@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Framework;
 
 use Framework\Contracts\RuleInterface;
+use Framework\Exceptions\ValidationException;
 
 // Not only our validator can use the default rules but users of 
 // our framework can also add their own rules to the validator as long
@@ -52,7 +53,7 @@ class Validator
 		}
 
 		if (count($errors)) {
-			dd($errors);
+			throw new ValidationException();
 		}
 	}
 }
