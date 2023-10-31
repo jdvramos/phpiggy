@@ -24,8 +24,11 @@ class ValidationExceptionMiddleware implements MiddlewareInterface
 		try {
 			$next();
 		} catch (ValidationException $e) {
-			dd($e->errors);
-			redirectTo("/register");
+			// The HTTP_REFERRER item is a special value available after form submission.
+			// It stores the url where the form was submitted. Therefore, we'll always be
+			// redirected to the same url with the original form 
+			$referer = $_SERVER['HTTP_REFERER'];
+			redirectTo($referer);
 		}
 	}
 }
