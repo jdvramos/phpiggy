@@ -12,4 +12,8 @@ use RuntimeException;
 // does not have to be fixed, but handled
 class ValidationException extends RuntimeException
 {
+	public function __construct(int $code = 422)
+	{
+		parent::__construct(code: $code);
+	}
 }
