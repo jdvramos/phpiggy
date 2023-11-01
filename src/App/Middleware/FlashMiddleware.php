@@ -26,6 +26,9 @@ class FlashMiddleware implements MiddlewareInterface
 		// method, pass in 'errors' as the key and errors stored in session when its truthy.
 		// With this, we exposed our errors to any template that needs them
 		$this->view->addGlobal('errors', $_SESSION['errors'] ?? []);
+
+		unset($_SESSION['errors']);
+
 		$next();
 	}
 }
