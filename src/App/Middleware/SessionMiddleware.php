@@ -26,5 +26,11 @@ class SessionMiddleware implements MiddlewareInterface
 
 		session_start();
 		$next();
+
+		// After the controller receives the request and generates a response. Does the session
+		// need to be active? I don't think so. Therefore, we should close the session after a 
+		// response has been generated. With this simple adjustment, we get a slight boost in
+		// performance
+		session_write_close();
 	}
 }
