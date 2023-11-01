@@ -24,6 +24,12 @@ class ValidationExceptionMiddleware implements MiddlewareInterface
 		try {
 			$next();
 		} catch (ValidationException $e) {
+			// Sessions are useful for storing errors. Sessions are a feature for storing data
+			// longer than a single request. Since redirection is another type of request, our
+			// errors object here will be destroyed by PHP, we use sessions to persist the 
+			// errors object in order to be used and displayed by redirected page
+			$_SESSION['errors'] = $e->errors;
+
 			// The HTTP_REFERRER item is a special value available after form submission.
 			// It stores the url where the form was submitted. Therefore, we'll always be
 			// redirected to the same url with the original form 
