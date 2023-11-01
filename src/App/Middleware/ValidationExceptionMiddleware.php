@@ -24,12 +24,21 @@ class ValidationExceptionMiddleware implements MiddlewareInterface
 		try {
 			$next();
 		} catch (ValidationException $e) {
+			$oldFormData = $_POST;
+
+			// Since password fields contains sensitive data, exclude it when prefilling forms
+			$excludedFields = ['password', 'confirmPassword'];
+			$formattedFormData = array_diff_key(
+				$oldFormData,
+				array_flip($excludedFields)
+			);
+
 			// Sessions are useful for storing errors. Sessions are a feature for storing data
 			// longer than a single request. Since redirection is another type of request, our
 			// errors object here will be destroyed by PHP, we use sessions to persist the 
 			// errors object in order to be used and displayed by redirected page
 			$_SESSION['errors'] = $e->errors;
-			$_SESSION['oldFormData'] = $_POST;
+			$_SESSION['oldFormData'] = $formattedFormData;
 
 			// The HTTP_REFERRER item is a special value available after form submission.
 			// It stores the url where the form was submitted. Therefore, we'll always be
