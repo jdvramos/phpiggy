@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use Framework\Validator;
-use Framework\Rules\{RequiredRule};
+use Framework\Rules\{RequiredRule, EmailRule};
 
 // It is a common practice to make Services injectable, add this to container-definitions.php
 class ValidatorService
@@ -19,12 +19,13 @@ class ValidatorService
 		// It's possible that developers may prefer to create their own
 		// 'required' rule. This means every rule must be registered by the App
 		$this->validator->add('required', new RequiredRule());
+		$this->validator->add('email', new EmailRule());
 	}
 
 	public function validateRegister(array $formData)
 	{
 		$this->validator->validate($formData, [
-			'email' => ['required'],
+			'email' => ['required', 'email'],
 			'age' => ['required'],
 			'country' => ['required'],
 			'socialMediaURL' => ['required'],
