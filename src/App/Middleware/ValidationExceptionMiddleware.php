@@ -29,6 +29,7 @@ class ValidationExceptionMiddleware implements MiddlewareInterface
 			// errors object here will be destroyed by PHP, we use sessions to persist the 
 			// errors object in order to be used and displayed by redirected page
 			$_SESSION['errors'] = $e->errors;
+			$_SESSION['oldFormData'] = $_POST;
 
 			// The HTTP_REFERRER item is a special value available after form submission.
 			// It stores the url where the form was submitted. Therefore, we'll always be
