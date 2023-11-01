@@ -20,8 +20,8 @@ class SessionMiddleware implements MiddlewareInterface
 
 		// If this returns true, the data has already been sent to the browser. Therefore, we
 		// can't active a session
-		if (headers_sent()) {
-			throw new SessionException("Headers already sent.");
+		if (headers_sent($filename, $line)) {
+			throw new SessionException("Headers already sent. Consider enabling output buffering. Data outputted from {$filename} - Line: {$line}");
 		}
 
 		session_start();
