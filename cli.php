@@ -29,8 +29,16 @@ $password = '';
 	The PDO class creates a connection to our database, it's important to store
 	the instance. Otherwise, we will lose the connection. If we want to interact
 	with our database we must do so through the variable. There are three arguments:
-	$dsn, $username, and $password.
+	$dsn, $username, and $password. The PDO class throws a PDOException if the 
+	attempt to connect to the requested database fails. The problem with not catching
+	this error is that it exposes the database url and credentials on the command line
+	which can be a potential security issue. Here, we are catching the error in order
+	to avoid this issue
 */
-$db = new PDO($dsn, $username, $password);
+try {
+	$db = new PDO($dsn, $username, $password);
+} catch (PDOException $e) {
+	die("Unable to connect to database");
+}
 
 echo "Connected to database";
