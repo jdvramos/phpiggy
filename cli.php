@@ -22,5 +22,15 @@ $config = http_build_query(data: [
 ], arg_separator: ';');
 
 $dsn = "{$driver}:{$config}";
+$username = 'root';
+$password = '';
 
-echo $dsn;
+/*
+	The PDO class creates a connection to our database, it's important to store
+	the instance. Otherwise, we will lose the connection. If we want to interact
+	with our database we must do so through the variable. There are three arguments:
+	$dsn, $username, and $password.
+*/
+$db = new PDO($dsn, $username, $password);
+
+echo "Connected to database";
