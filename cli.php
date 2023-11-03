@@ -21,6 +21,6 @@ $query = "SELECT * FROM products";
 	refer to the result of a query as statement. After all, the query()
 	function returns a type called PDOStatement
 */
-$stmt = $db->connection->query($query);
+$stmt = $db->connection->query($query, PDO::FETCH_ASSOC);
 
-var_dump($stmt->fetchAll());
+var_dump($stmt->fetchAll(PDO::FETCH_OBJ));
