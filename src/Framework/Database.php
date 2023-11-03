@@ -47,4 +47,9 @@ class Database
 			die("Unable to connect to database");
 		}
 	}
+
+	public function query(string $query)
+	{
+		$this->connection->query($query);
+	}
 }
