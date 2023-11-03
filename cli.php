@@ -14,7 +14,11 @@ $db = new Database('mysql', [
 	'dbname' => 'phpiggy',
 ], 'root', '');
 
-$query = "SELECT * FROM products";
+$search = "Hats' OR 1=1 -- ";
+
+$query = "SELECT * FROM products WHERE name='{$search}'";
+
+echo $query;
 
 /*
 	The variable is called stmt (statement). It's a common practice to
